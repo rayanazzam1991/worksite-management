@@ -1,0 +1,73 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider;
+
+class $CLASS$ extends ServiceProvider
+{
+    protected string $moduleName = '$MODULE$';
+
+    protected string $moduleNameLower = '$LOWER_NAME$';
+
+    /**
+     * Boot the application events.
+     */
+    public function boot(): void
+    {
+        $this->registerCommands();
+        $this->registerCommandSchedules();
+        $this->registerConfig();
+        $this->loadMigrationsFrom(module_path($this->moduleName, '$MIGRATIONS_PATH$'));
+    }
+
+    /**
+     * Register the service provider.
+     */
+    public function register(): void
+    {
+        $this->app->register(RouteServiceProvider::class);
+    }
+
+    /**
+     * Register commands in the format of Command::class
+     */
+    protected function registerCommands(): void
+    {
+        // $this->commands([]);
+    }
+
+    /**
+     * Register command Schedules.
+     */
+    protected function registerCommandSchedules(): void
+    {
+        // $this->app->booted(function () {
+        //     $schedule = $this->app->make(Schedule::class);
+        //     $schedule->command('inspire')->hourly();
+        // });
+    }
+
+
+    /**
+     * Register config.
+     */
+    protected function registerConfig(): void
+    {
+        $this->publishes([module_path($this->moduleName, '$PATH_CONFIG$/config.php') => config_path($this->moduleNameLower.'.php')], 'config');
+        $this->mergeConfigFrom(module_path($this->moduleName, '$PATH_CONFIG$/config.php'), $this->moduleNameLower);
+    }
+
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array<string>
+     */
+    public function provides(): array
+    {
+        return [];
+    }
+
+}

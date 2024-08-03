@@ -1,0 +1,6 @@
+POST http://127.0.0.1:8000/api/v1/worksite/create
+Content-Type: application/json
+
+{
+    "title": "workSite A"
+}
